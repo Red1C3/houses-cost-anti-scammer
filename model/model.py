@@ -38,5 +38,20 @@ class Model:
         bathrooms['enough']=fuzz.trimf(bathrooms.universe,[1,2,4])
         bathrooms['lot']=fuzz.trapmf(bathrooms.universe,[2,4,9,9])
 
+        floors=ctrl.Antecedent(np.arange(1,4.5,0.5),'floors')
+        floors['few']=fuzz.trimf(floors.universe,[0,0,2])
+        floors['med']=fuzz.trimf(floors.universe,[1,2,3])
+        floors['lot']=fuzz.trimf(floors.universe,[2.5,4,4])
+
+        condition=ctrl.Antecedent(np.arange(1,5.5,0.5),'condition')
+        condition['poor']=fuzz.gaussmf(condition.universe,1,0.4)
+        condition['acceptable']=fuzz.gaussmf(condition.universe,3,0.8)
+        condition['good']=fuzz.gaussmf(condition.universe,5,0.7)
+
+        distance=ctrl.Antecedent(np.arange(0,250,0.1),'distance')
+        distance['close']=fuzz.trapmf(distance.universe,[0,0,244,244.2])
+        distance['med']=fuzz.trimf(distance.universe,[244,244.2,244.4])
+        distance['far']=fuzz.trimf(distance.universe,[244.2,250,250])
+
         return {'sqft_living':sqft_living,'sqft_lot':sqft_lot,'sqft_basement':sqft_basement,'view':view,'bedrooms':bedrooms,
-        'bathrooms':bathrooms}
+        'bathrooms':bathrooms,'floors':floors,'condition':condition,'distance':distance}
