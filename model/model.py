@@ -6,8 +6,12 @@ class Model:
     def __init__(self):
         self.input_vars=self.model_input_vars()
 
+        self.price_var=ctrl.Antecedent(np.arange(0,8e6),'price')
+        self.price_var['cheap']=fuzz.gaussmf(self.price_var.universe,0,0.5e6)
+        self.price_var['affordable']=fuzz.gaussmf(self.price_var.universe,1e6,0.25e6)
+        self.price_var['expensive']=fuzz.trapmf(self.price_var.universe,[1e6,2e6,8e6,8e6])
+
     def model_input_vars(self):
-        #sqft living
         sqft_living=ctrl.Antecedent(np.arange(0,15000),'sqft_living')
         sqft_living['small']=fuzz.trimf(sqft_living.universe,[0,0,3000])
         sqft_living['med']=fuzz.trimf(sqft_living.universe,[2000,4000,6000])
