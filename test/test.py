@@ -7,7 +7,7 @@ tqdm.pandas()
 
 error=0
 
-def run():
+def run(samples_cap=None):
 
     model=Model(DummyRulesMaker(),10000)    
 
@@ -19,6 +19,9 @@ def run():
         global error
         error+=(model.predict(x[:-1].to_dict())-x[-1])**2
     
+    if samples_cap is not None:
+        data=data[:samples_cap]
+
     data.progress_apply(se,axis=1)
 
     return error/data.shape[0]
