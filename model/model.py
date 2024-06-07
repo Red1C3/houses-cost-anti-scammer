@@ -3,10 +3,10 @@ import skfuzzy as fuzz
 from skfuzzy import control as ctrl
 
 class Model:
-    def __init__(self,rules_maker):
+    def __init__(self,rules_maker,output_precision=1):
         self.input_vars=self.model_input_vars()
 
-        self.price_var=ctrl.Consequent(np.arange(0,8e6),'price')
+        self.price_var=ctrl.Consequent(np.arange(0,8e6,output_precision),'price')
         self.price_var['cheap']=fuzz.gaussmf(self.price_var.universe,0,0.5e6)
         self.price_var['affordable']=fuzz.gaussmf(self.price_var.universe,1e6,0.25e6)
         self.price_var['expensive']=fuzz.trapmf(self.price_var.universe,[1e6,2e6,8e6,8e6])
