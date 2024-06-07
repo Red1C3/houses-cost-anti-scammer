@@ -5,7 +5,7 @@ from rules_makers.dummy import DummyRulesMaker
 
 def main():
     model=Model(DummyRulesMaker())
-    model.input_vars['bathrooms'].view()
+    print(model.predict({'sqft_living':0,'sqft_lot':0,'sqft_basement':0,'view':0,'bedrooms':0,'bathrooms':0,'floors':1,'condition':1,'distance':0}))
 
 if __name__=='__main__':
     main()

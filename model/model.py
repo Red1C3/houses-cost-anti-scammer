@@ -12,6 +12,16 @@ class Model:
         self.price_var['expensive']=fuzz.trapmf(self.price_var.universe,[1e6,2e6,8e6,8e6])
 
         self.rules=rules_maker.get_rules(self.input_vars,self.price_var)
+        
+        self.fuzzy_system=ctrl.ControlSystemSimulation(ctrl.ControlSystem(self.rules))
+
+    def predict(self,input_dict:dict):
+        for k,v in input_dict.items():
+            self.fuzzy_system.input[k]=v
+
+        self.fuzzy_system.compute()
+
+        return (self.fuzzy_system.output['price'],'cheap') #TODO second item must be infered by defuzzification
 
     def model_input_vars(self):
         sqft_living=ctrl.Antecedent(np.arange(0,15000),'sqft_living')
