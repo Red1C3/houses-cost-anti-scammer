@@ -15,13 +15,13 @@ class Model:
         
         self.fuzzy_system=ctrl.ControlSystemSimulation(ctrl.ControlSystem(self.rules))
 
-    def predict(self,input_dict:dict):
+    def predict(self,input_dict:dict,mode:str='centroid'):
         if 'distance' not in input_dict.keys():
             input_dict['distance']=np.sqrt((input_dict['lat'] - 47.548320) ** 2 + (input_dict['long'] - 122.229983) ** 2)
 
-        return self._predict(input_dict)
+        return self._predict(input_dict,mode)
 
-    def _predict(self,input_dict:dict):
+    def _predict(self,input_dict:dict,mode:str):
         for k,v in input_dict.items():
             if k not in self.input_vars.keys():
                 continue
@@ -29,7 +29,9 @@ class Model:
 
         self.fuzzy_system.compute()
 
-        return (self.fuzzy_system.output['price'],'cheap') #TODO second item must be infered by defuzzification
+        memberships=ctrl.controlsystem.CrispValueCalculator(self.price_var,self.fuzzy_system).find_memberships()
+
+        return fuzz.defuzz(memberships[0],memberships[1],mode)
 
     def model_input_vars(self):
         sqft_living=ctrl.Antecedent(np.arange(0,15000),'sqft_living')
