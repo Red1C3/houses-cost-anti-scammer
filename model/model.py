@@ -16,7 +16,15 @@ class Model:
         self.fuzzy_system=ctrl.ControlSystemSimulation(ctrl.ControlSystem(self.rules))
 
     def predict(self,input_dict:dict):
+        if 'distance' not in input_dict.keys():
+            input_dict['distance']=np.sqrt((input_dict['lat'] - 47.548320) ** 2 + (input_dict['long'] - 122.229983) ** 2)
+
+        return self._predict(input_dict)
+
+    def _predict(self,input_dict:dict):
         for k,v in input_dict.items():
+            if k not in self.input_vars.keys():
+                continue
             self.fuzzy_system.input[k]=v
 
         self.fuzzy_system.compute()
