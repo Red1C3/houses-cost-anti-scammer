@@ -1,6 +1,28 @@
 import numpy as np
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
+from math import radians, cos, sin, asin, sqrt
+def distance(long,lat):
+     
+    # The math module contains a function named
+    # radians which converts from degrees to radians.
+    lon1 = radians(long)
+    lon2 = radians(-122.229983)
+    lat1 = radians(lat)
+    lat2 = radians(47.548320)
+      
+    # Haversine formula 
+    dlon = lon2 - lon1 
+    dlat = lat2 - lat1
+    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+ 
+    c = 2 * asin(sqrt(a)) 
+    
+    # Radius of earth in kilometers.
+    r = 6371
+      
+    # calculate the result
+    return(c * r)
 
 class Model:
     def __init__(self,rules_maker,output_precision=1):
@@ -17,7 +39,9 @@ class Model:
 
     def predict(self,input_dict:dict,mode:str='centroid'):
         if 'distance' not in input_dict.keys():
-            input_dict['distance']=np.sqrt((input_dict['lat'] - 47.548320) ** 2 + (input_dict['long'] - 122.229983) ** 2)
+            input_dict['distance']=distance(input_dict['long'],input_dict['lat'])
+
+        input_dict['amenities']=(input_dict['bathrooms'] * 100) + (input_dict['condition'] * 75) + (input_dict['bedrooms'] * 75) + (input_dict['floors'] * 75) + (input_dict['view']*85)
 
         return self._predict(input_dict,mode)
 
@@ -44,11 +68,19 @@ class Model:
         sqft_lot['med']=fuzz.trimf(sqft_lot.universe,[0.1e6,0.25e6,0.3e6])
         sqft_lot['large']=fuzz.trapmf(sqft_lot.universe,[0.25e6,0.3e6,2e6,2e6])
 
+        sqft_basement=ctrl.Antecedent(np.arange(0,6000),'sqft_basement')
+        sqft_basement['small']=fuzz.trimf(sqft_basement.universe,[0,0,1000])
+        sqft_basement['med']=fuzz.trimf(sqft_basement.universe,[250,1000,1750])
+        sqft_basement['large']=fuzz.trapmf(sqft_basement.universe,[1000,2000,6000,6000])
+
+        amenities=ctrl.Antecedent(np.arange(0,3525,25),'amenities')
+        amenities['poor']=fuzz.gaussmf(amenities.universe,0,250)
+        amenities['acceptable']=fuzz.gaussmf(amenities.universe,851,200)
+        amenities['good']=fuzz.trapmf(amenities.universe,[983,1600,3500,3500])
 
         distance=ctrl.Antecedent(np.arange(0,250,0.1),'distance')
         distance['close']=fuzz.trapmf(distance.universe,[0,0,244,244.2])
         distance['med']=fuzz.trimf(distance.universe,[244,244.2,244.4])
         distance['far']=fuzz.trimf(distance.universe,[244.2,250,250])
 
-        return {'sqft_living':sqft_living,'sqft_lot':sqft_lot,'sqft_basement':sqft_basement,'view':view,'bedrooms':bedrooms,
-        'bathrooms':bathrooms,'floors':floors,'condition':condition,'distance':distance}
+        return {'sqft_living':sqft_living,'sqft_lot':sqft_lot,'sqft_basement':sqft_basement,'amenities':amenities,'distance':distance}
