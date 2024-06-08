@@ -41,7 +41,7 @@ class Model:
         if 'distance' not in input_dict.keys():
             input_dict['distance']=distance(input_dict['long'],input_dict['lat'])
 
-        input_dict['amenities']=(input_dict['bathrooms'] * 100) + (input_dict['condition'] * 75) + (input_dict['bedrooms'] * 75) + (input_dict['floors'] * 75)
+        input_dict['amenities']=(input_dict['bathrooms'] * 100) + (input_dict['condition'] * 75) + (input_dict['bedrooms'] * 75) + (input_dict['floors'] * 75) + (input_dict['view']*85)
 
         return self._predict(input_dict,mode)
 
@@ -73,19 +73,14 @@ class Model:
         sqft_basement['med']=fuzz.trimf(sqft_basement.universe,[250,1000,1750])
         sqft_basement['large']=fuzz.trapmf(sqft_basement.universe,[1000,2000,6000,6000])
 
-        view=ctrl.Antecedent(np.arange(0,4.5,0.5),'view')
-        view['bad']=fuzz.gaussmf(view.universe,0,0.7)
-        view['acceptable']=fuzz.gaussmf(view.universe,2,0.6)
-        view['good']=fuzz.gaussmf(view.universe,4,0.7)
-
         amenities=ctrl.Antecedent(np.arange(0,3525,25),'amenities')
-        amenities['poor']=fuzz.gaussmf(amenities.universe,0,400)
-        amenities['acceptable']=fuzz.gaussmf(amenities.universe,831,200)
-        amenities['good']=fuzz.trapmf(amenities.universe,[883,1500,3500,3500])
+        amenities['poor']=fuzz.gaussmf(amenities.universe,0,250)
+        amenities['acceptable']=fuzz.gaussmf(amenities.universe,851,200)
+        amenities['good']=fuzz.trapmf(amenities.universe,[983,1600,3500,3500])
 
         distance=ctrl.Antecedent(np.arange(0,250,0.1),'distance')
         distance['close']=fuzz.trapmf(distance.universe,[0,0,244,244.2])
         distance['med']=fuzz.trimf(distance.universe,[244,244.2,244.4])
         distance['far']=fuzz.trimf(distance.universe,[244.2,250,250])
 
-        return {'sqft_living':sqft_living,'sqft_lot':sqft_lot,'sqft_basement':sqft_basement,'view':view,'amenities':amenities,'distance':distance}
+        return {'sqft_living':sqft_living,'sqft_lot':sqft_lot,'sqft_basement':sqft_basement,'amenities':amenities,'distance':distance}

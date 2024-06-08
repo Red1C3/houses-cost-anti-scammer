@@ -8,7 +8,6 @@ class DummyRulesMaker:
             ctrl.Rule(input_vars['sqft_living']['small'] | input_vars['sqft_living']['med'] | input_vars['sqft_living']['large'] |
              input_vars['sqft_lot']['small'] | input_vars['sqft_lot']['med'] | input_vars['sqft_lot']['large'] |
              input_vars['sqft_basement']['small'] | input_vars['sqft_basement']['med'] | input_vars['sqft_basement']['large'] |
-             input_vars['view']['bad'] | input_vars['view']['acceptable'] | input_vars['view']['good'] |
              input_vars['amenities']['poor'] | input_vars['amenities']['acceptable'] | input_vars['amenities']['good'] |
              input_vars['distance']['close'] | input_vars['distance']['med'] | input_vars['distance']['far']
             ,output_var['cheap'])
