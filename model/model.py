@@ -58,7 +58,7 @@ class Model:
 
         amenities=ctrl.Antecedent(np.arange(0,3525,25),'amenities')
         amenities['poor']=fuzz.gaussmf(amenities.universe,0,400)
-        amenities['acceptable']=fuzz.gaussmf(amenities.universe,831,300)
+        amenities['acceptable']=fuzz.gaussmf(amenities.universe,831,200)
         amenities['good']=fuzz.trapmf(amenities.universe,[883,1500,3500,3500])
 
         distance=ctrl.Antecedent(np.arange(0,250,0.1),'distance')
