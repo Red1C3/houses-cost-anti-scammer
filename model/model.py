@@ -38,6 +38,8 @@ class Model:
         self.fuzzy_system=ctrl.ControlSystemSimulation(ctrl.ControlSystem(self.rules))
 
     def predict(self,input_dict:dict,mode:str='centroid'):
+        self.fuzzy_system.reset()
+
         if 'distance' not in input_dict.keys():
             input_dict['distance']=distance(input_dict['long'],input_dict['lat'])
 
@@ -58,7 +60,7 @@ class Model:
         return fuzz.defuzz(memberships[0],memberships[1],mode)
 
     def model_input_vars(self):
-        sqft_living=ctrl.Antecedent(np.arange(1,15000),'sqft_living')
+        sqft_living=ctrl.Antecedent(np.arange(1,13540),'sqft_living')
         sqft_living['small']=fuzz.trimf(sqft_living.universe,[1,1,1675])
         sqft_living['med']=fuzz.trimf(sqft_living.universe,[1500,2000,2484])
         sqft_living['large']=fuzz.trapmf(sqft_living.universe,[2200,2700,13540,13540])
