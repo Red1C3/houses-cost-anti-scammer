@@ -78,9 +78,9 @@ class Model:
         amenities['acceptable']=fuzz.gaussmf(amenities.universe,851,200)
         amenities['good']=fuzz.trapmf(amenities.universe,[983,1600,3500,3500])
 
-        distance=ctrl.Antecedent(np.arange(0,250,0.1),'distance')
-        distance['close']=fuzz.trapmf(distance.universe,[0,0,244,244.2])
-        distance['med']=fuzz.trimf(distance.universe,[244,244.2,244.4])
-        distance['far']=fuzz.trimf(distance.universe,[244.2,250,250])
+        distance=ctrl.Antecedent(np.arange(0,80,0.1),'distance')
+        distance['close']=fuzz.trapmf(distance.universe,[0,0,10,13])
+        distance['med']=fuzz.trimf(distance.universe,[12,15,18])
+        distance['far']=fuzz.trapmf(distance.universe,[17,20,90,90])
 
         return {'sqft_living':sqft_living,'sqft_lot':sqft_lot,'sqft_basement':sqft_basement,'amenities':amenities,'distance':distance}
