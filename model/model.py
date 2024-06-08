@@ -1,6 +1,28 @@
 import numpy as np
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
+from math import radians, cos, sin, asin, sqrt
+def distance(long,lat):
+     
+    # The math module contains a function named
+    # radians which converts from degrees to radians.
+    lon1 = radians(long)
+    lon2 = radians(-122.229983)
+    lat1 = radians(lat)
+    lat2 = radians(47.548320)
+      
+    # Haversine formula 
+    dlon = lon2 - lon1 
+    dlat = lat2 - lat1
+    a = sin(dlat / 2)**2 + cos(lat1) * cos(lat2) * sin(dlon / 2)**2
+ 
+    c = 2 * asin(sqrt(a)) 
+    
+    # Radius of earth in kilometers.
+    r = 6371
+      
+    # calculate the result
+    return(c * r)
 
 class Model:
     def __init__(self,rules_maker,output_precision=1):
@@ -17,7 +39,7 @@ class Model:
 
     def predict(self,input_dict:dict,mode:str='centroid'):
         if 'distance' not in input_dict.keys():
-            input_dict['distance']=np.sqrt((input_dict['lat'] - 47.548320) ** 2 + (input_dict['long'] - 122.229983) ** 2)
+            input_dict['distance']=distance(input_dict['long'],input_dict['lat'])
 
         input_dict['amenities']=(input_dict['bathrooms'] * 100) + (input_dict['condition'] * 75) + (input_dict['bedrooms'] * 75) + (input_dict['floors'] * 75)
 
