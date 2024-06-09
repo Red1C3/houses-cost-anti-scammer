@@ -85,4 +85,4 @@ class Model:
         distance['med']=fuzz.trimf(distance.universe,[12,15,18])
         distance['far']=fuzz.trapmf(distance.universe,[17,20,90,90])
 
-        return {'sqft_living':sqft_living,'sqft_lot':sqft_lot,'sqft_basement':sqft_basement,'amenities':amenities,'distance':distance}
+        return {'sqft_living':sqft_living,'amenities':amenities,'distance':distance}
