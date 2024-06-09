@@ -4,6 +4,7 @@ from model.model import Model
 from rules_makers.dummy import DummyRulesMaker
 from rules_makers.rule_maker import RulesMaker
 from rules_makers.rule_maker_plus import RulesMakerPlus
+from rules_makers.rule_maker_explicit import RulesMakerExplicit
 import numpy as np
 import math
 
@@ -12,7 +13,7 @@ tqdm.pandas()
 error=0
 
 def run(samples_cap=None):
-    model=Model(RulesMaker(),10000)    
+    model=Model(RulesMakerExplicit(),10000)    
 
     data=pd.read_csv('kc_house_data.csv')
 

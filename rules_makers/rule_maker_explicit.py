@@ -7,8 +7,8 @@ MED='med'
 LARGE='large'
 POOR='poor'
 ACCEPTABLE='acceptable'
-GOOD='GOOD'
-CLOSE='CLOSE'
+GOOD='good'
+CLOSE='close'
 FAR='far'
 CHEAP='cheap'
 AFFORDABLE='affordable'
@@ -25,33 +25,33 @@ class RulesMakerExplicit:
     def get_rules(self,input_vars,output_var):
         self.input_vars=input_vars
         self.output_var=output_var
-        #TODO fill PRICE correctly
+        r=self.r
         return [
             r(SMALL,POOR,FAR,CHEAP),
             r(SMALL,POOR,MED,CHEAP),
-            r(SMALL,POOR,CLOSE,CHEAP),
+            r(SMALL,POOR,CLOSE,AFFORDABLE),
             r(SMALL,ACCEPTABLE,FAR,CHEAP),
-            r(SMALL,ACCEPTABLE,MED,CHEAP),
-            r(SMALL,ACCEPTABLE,CLOSE,CHEAP),
-            r(SMALL,GOOD,FAR,CHEAP),
-            r(SMALL,GOOD,MED,CHEAP),
-            r(SMALL,GOOD,CLOSE,CHEAP),
+            r(SMALL,ACCEPTABLE,MED,AFFORDABLE),
+            r(SMALL,ACCEPTABLE,CLOSE,AFFORDABLE),
+            r(SMALL,GOOD,FAR,EXPENSIVE),
+            r(SMALL,GOOD,MED,EXPENSIVE),
+            r(SMALL,GOOD,CLOSE,EXPENSIVE),
             r(MED,POOR,FAR,CHEAP),
             r(MED,POOR,MED,CHEAP),
-            r(MED,POOR,CLOSE,CHEAP),
-            r(MED,ACCEPTABLE,FAR,CHEAP),
-            r(MED,ACCEPTABLE,MED,CHEAP),
-            r(MED,ACCEPTABLE,CLOSE,CHEAP),
-            r(MED,GOOD,FAR,CHEAP),
-            r(MED,GOOD,MED,CHEAP),
-            r(MED,GOOD,CLOSE,CHEAP),
-            r(LARGE,POOR,FAR,CHEAP),
-            r(LARGE,POOR,MED,CHEAP),
-            r(LARGE,POOR,CLOSE,CHEAP),
-            r(LARGE,ACCEPTABLE,FAR,CHEAP),
-            r(LARGE,ACCEPTABLE,MED,CHEAP),
-            r(LARGE,ACCEPTABLE,CLOSE,CHEAP),
-            r(LARGE,GOOD,FAR,CHEAP),
-            r(LARGE,GOOD,MED,CHEAP),
-            r(LARGE,GOOD,CLOSE,CHEAP),
+            r(MED,POOR,CLOSE,AFFORDABLE),
+            r(MED,ACCEPTABLE,FAR,AFFORDABLE),
+            r(MED,ACCEPTABLE,MED,AFFORDABLE),
+            r(MED,ACCEPTABLE,CLOSE,EXPENSIVE),
+            r(MED,GOOD,FAR,EXPENSIVE),
+            r(MED,GOOD,MED,EXPENSIVE),
+            r(MED,GOOD,CLOSE,EXPENSIVE),
+            r(LARGE,POOR,FAR,AFFORDABLE),
+            r(LARGE,POOR,MED,AFFORDABLE),
+            r(LARGE,POOR,CLOSE,AFFORDABLE),
+            r(LARGE,ACCEPTABLE,FAR,AFFORDABLE),
+            r(LARGE,ACCEPTABLE,MED,EXPENSIVE),
+            r(LARGE,ACCEPTABLE,CLOSE,EXPENSIVE),
+            r(LARGE,GOOD,FAR,AFFORDABLE),
+            r(LARGE,GOOD,MED,EXPENSIVE),
+            r(LARGE,GOOD,CLOSE,EXPENSIVE),
         ]
