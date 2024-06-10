@@ -40,8 +40,10 @@ class Model:
     def predict(self,input_dict:dict,mode:str='centroid'):
         self.fuzzy_system.reset()
 
-        if 'distance' not in input_dict.keys():
-            input_dict['distance']=distance(input_dict['long'],input_dict['lat'])
+        
+        dis=distance(input_dict['long'],input_dict['lat'])
+
+        input_dict['location']=input_dict['location_rating'] + (1/dis)
 
         input_dict['amenities']=(input_dict['bathrooms'] * 100) + (input_dict['condition'] * 75) + (input_dict['bedrooms'] * 75) + (input_dict['floors'] * 75) + (input_dict['view']*85)
 
@@ -65,24 +67,14 @@ class Model:
         sqft_living['med']=fuzz.trimf(sqft_living.universe,[1500,2000,2484])
         sqft_living['large']=fuzz.trapmf(sqft_living.universe,[2200,2700,13540,13540])
 
-        sqft_lot=ctrl.Antecedent(np.arange(0,2e6),'sqft_lot')
-        sqft_lot['small']=fuzz.trimf(sqft_lot.universe,[0,0,0.25e6])
-        sqft_lot['med']=fuzz.trimf(sqft_lot.universe,[0.1e6,0.25e6,0.3e6])
-        sqft_lot['large']=fuzz.trapmf(sqft_lot.universe,[0.25e6,0.3e6,2e6,2e6])
-
-        sqft_basement=ctrl.Antecedent(np.arange(0,6000),'sqft_basement')
-        sqft_basement['small']=fuzz.trimf(sqft_basement.universe,[0,0,1000])
-        sqft_basement['med']=fuzz.trimf(sqft_basement.universe,[250,1000,1750])
-        sqft_basement['large']=fuzz.trapmf(sqft_basement.universe,[1000,2000,6000,6000])
-
         amenities=ctrl.Antecedent(np.arange(0,3525,25),'amenities')
         amenities['poor']=fuzz.gaussmf(amenities.universe,0,250)
         amenities['acceptable']=fuzz.gaussmf(amenities.universe,851,200)
         amenities['good']=fuzz.trapmf(amenities.universe,[983,1600,3500,3500])
 
-        distance=ctrl.Antecedent(np.arange(0,80,0.1),'distance')
-        distance['close']=fuzz.trapmf(distance.universe,[0,0,10,13])
-        distance['med']=fuzz.trimf(distance.universe,[12,15,18])
-        distance['far']=fuzz.trapmf(distance.universe,[17,20,90,90])
+        location=ctrl.Antecedent(np.arange(1,11,0.01),'location')
+        location['close']=fuzz.trapmf(location.universe,[1,1,3,6.5])
+        location['med']=fuzz.trimf(location.universe,[6,6.5,7])
+        location['far']=fuzz.trapmf(location.universe,[6.3,6.5,11,11])
 
-        return {'sqft_living':sqft_living,'amenities':amenities,'distance':distance}
+        return {'sqft_living':sqft_living,'amenities':amenities,'location':location}
