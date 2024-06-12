@@ -64,10 +64,10 @@ class Model:
         return fuzz.defuzz(memberships[0],memberships[1],mode)
 
     def model_input_vars(self):
-        size=ctrl.Antecedent(np.arange(3.651000e+03,1.657859e+06,1e4),'size')
-        size['small']=fuzz.trimf(size.universe,[3.651000e+03,3.651000e+03,1675])
-        size['med']=fuzz.trimf(size.universe,[1500,2000,2484])
-        size['large']=fuzz.trapmf(size.universe,[2200,2700,1.657859e+06,1.657859e+06])
+        size=ctrl.Antecedent(np.arange(0,1.657859e+06,1e4),'size')
+        size['small']=fuzz.trimf(size.universe,[0,0,0.025e6])
+        size['med']=fuzz.trimf(size.universe,[0.01e6,0.1e6,0.125e6])
+        size['large']=fuzz.trapmf(size.universe,[0.12e6,0.5e6,1.657859e+06,1.657859e+06])
 
         amenities=ctrl.Antecedent(np.arange(0,3525,25),'amenities')
         amenities['poor']=fuzz.gaussmf(amenities.universe,0,250)
