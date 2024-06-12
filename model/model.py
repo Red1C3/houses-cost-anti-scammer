@@ -75,8 +75,8 @@ class Model:
         amenities['good']=fuzz.trapmf(amenities.universe,[983,1600,3500,3500])
 
         location=ctrl.Antecedent(np.arange(1,11,0.01),'location')
-        location['close']=fuzz.trapmf(location.universe,[1,1,6,6.1])
-        location['med']=fuzz.trimf(location.universe,[6,6.5,7])
-        location['far']=fuzz.trapmf(location.universe,[6.9,8,11,11])
+        location['poor']=fuzz.trapmf(location.universe,[1,1,6,6.1])
+        location['acceptable']=fuzz.trimf(location.universe,[6,6.5,7])
+        location['good']=fuzz.trapmf(location.universe,[6.9,8,11,11])
 
         return {'size':size,'amenities':amenities,'location':location}

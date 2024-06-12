@@ -5,6 +5,7 @@ from rules_makers.dummy import DummyRulesMaker
 from rules_makers.rule_maker import RulesMaker
 from rules_makers.rule_maker_plus import RulesMakerPlus
 from rules_makers.rule_maker_explicit import RulesMakerExplicit
+from rules_makers.rule_maker2 import RulesMaker2
 import numpy as np
 import math
 
@@ -13,11 +14,11 @@ tqdm.pandas()
 error=0
 
 def run(samples_cap=None):
-    model=Model(RulesMakerExplicit(),10000)    
+    model=Model(RulesMaker2(),10000)    
 
     data=pd.read_csv('kc_house_data.csv')
 
-    data=data[['sqft_living','sqft_lot','sqft_basement','view','bedrooms','bathrooms','floors','condition','lat','long','price']]
+    data=data[['sqft_living','sqft_lot','view','bedrooms','bathrooms','floors','condition','lat','long','location_rating','price']]
 
     def ae(x):
         global error
