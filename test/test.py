@@ -1,5 +1,6 @@
 import pandas as pd
 from tqdm import tqdm
+from sklearn.metrics import r2_score
 from model.model import Model
 from rules_makers.dummy import DummyRulesMaker
 from rules_makers.rule_maker import RulesMaker
@@ -27,6 +28,8 @@ def run(samples_cap=None):
     if samples_cap is not None:
         data=data[:samples_cap]
 
-    data.progress_apply(ae,axis=1)
+    data['y_pred']=data.progress_apply(model.predict,axis=1)
 
-    return math.log( error/data.shape[0]+1)
+    
+
+    return r2_score(data.iloc[:,-2],data.iloc[:,-1])
