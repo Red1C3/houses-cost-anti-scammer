@@ -28,10 +28,10 @@ class Model:
     def __init__(self,rules_maker,output_precision=1):
         self.input_vars=self.model_input_vars()
 
-        self.price_var=ctrl.Consequent(np.arange(0,8e6,output_precision),'price')
-        self.price_var['cheap']=fuzz.trapmf(self.price_var.universe,[0,0,370000,378552])
-        self.price_var['affordable']=fuzz.trapmf(self.price_var.universe,[370000, 378552, 701624, 801624])
-        self.price_var['expensive']=fuzz.trapmf(self.price_var.universe,[721624, 751624, 7700000,7700000])
+        self.price_var=ctrl.Consequent(np.arange(0,9e5,output_precision),'price')
+        self.price_var['cheap']=fuzz.gaussmf(self.price_var.universe,0,1e5)
+        self.price_var['affordable']=fuzz.gaussmf(self.price_var.universe,3.7e5,1e5)
+        self.price_var['expensive']=fuzz.gaussmf(self.price_var.universe,9e5,1.5e5)
 
         self.rules=rules_maker.get_rules(self.input_vars,self.price_var)
         
