@@ -47,6 +47,8 @@ class Model:
 
         input_dict['amenities']=(input_dict['bathrooms'] * 100) + (input_dict['condition'] * 75) + (input_dict['bedrooms'] * 75) + (input_dict['floors'] * 75) + (input_dict['view']*85)
 
+        input_dict['size']=5*input_dict['sqft_living']+ input_dict['sqft_lot']
+
         return self._predict(input_dict,mode)
 
     def _predict(self,input_dict:dict,mode:str):
@@ -62,10 +64,10 @@ class Model:
         return fuzz.defuzz(memberships[0],memberships[1],mode)
 
     def model_input_vars(self):
-        sqft_living=ctrl.Antecedent(np.arange(1,13540),'sqft_living')
-        sqft_living['small']=fuzz.trimf(sqft_living.universe,[1,1,1675])
-        sqft_living['med']=fuzz.trimf(sqft_living.universe,[1500,2000,2484])
-        sqft_living['large']=fuzz.trapmf(sqft_living.universe,[2200,2700,13540,13540])
+        size=ctrl.Antecedent(np.arange(3.651000e+03,1.657859e+06,1e4),'size')
+        size['small']=fuzz.trimf(size.universe,[3.651000e+03,3.651000e+03,1675])
+        size['med']=fuzz.trimf(size.universe,[1500,2000,2484])
+        size['large']=fuzz.trapmf(size.universe,[2200,2700,1.657859e+06,1.657859e+06])
 
         amenities=ctrl.Antecedent(np.arange(0,3525,25),'amenities')
         amenities['poor']=fuzz.gaussmf(amenities.universe,0,250)
@@ -77,4 +79,4 @@ class Model:
         location['med']=fuzz.trimf(location.universe,[6,6.5,7])
         location['far']=fuzz.trapmf(location.universe,[6.3,6.5,11,11])
 
-        return {'sqft_living':sqft_living,'amenities':amenities,'location':location}
+        return {'size':size,'amenities':amenities,'location':location}
