@@ -43,11 +43,11 @@ class Model:
         
         dis=distance(input_dict['long'],input_dict['lat'])
 
-        input_dict['location']=input_dict['location_rating'] + (1/dis)
+        input_dict['location']=dis
 
-        input_dict['amenities']=(input_dict['bathrooms'] * 100) + (input_dict['condition'] * 75) + (input_dict['bedrooms'] * 75) + (input_dict['floors'] * 75) + (input_dict['view']*85)
+        input_dict['amenities']=input_dict['condition']
 
-        input_dict['size']=5*input_dict['sqft_living']+ input_dict['sqft_lot']
+        input_dict['size']=input_dict['sqft_living']
 
         return self._predict(input_dict,mode)
 
