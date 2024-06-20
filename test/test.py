@@ -7,6 +7,7 @@ from rules_makers.rule_maker import RulesMaker
 from rules_makers.rule_maker_plus import RulesMakerPlus
 from rules_makers.rule_maker_explicit import RulesMakerExplicit
 from rules_makers.rule_maker2 import RulesMaker2
+from rules_makers.rule_maker3 import RulesMaker3
 import numpy as np
 import math
 
@@ -15,7 +16,7 @@ tqdm.pandas()
 error=0
 
 def run(samples_cap=None):
-    model=Model(RulesMaker2(),10000)    
+    model=Model(RulesMaker3(),10000)    
 
     data=pd.read_csv('kc_house_data.csv')
 
@@ -28,9 +29,9 @@ def run(samples_cap=None):
     if samples_cap is not None:
         data=data[:samples_cap]
 
-    # data['y_pred']=data.progress_apply(model.predict,axis=1)
+    data['y_pred']=data.progress_apply(model.predict,axis=1)
 
-    data.progress_apply(ae,axis=1)
+    # data.progress_apply(ae,axis=1)
     
 
-    return math.log(error)
+    return r2_score(data['price'],data['y_pred'])
