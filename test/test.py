@@ -28,8 +28,9 @@ def run(samples_cap=None):
     if samples_cap is not None:
         data=data[:samples_cap]
 
-    data['y_pred']=data.progress_apply(model.predict,axis=1)
+    # data['y_pred']=data.progress_apply(model.predict,axis=1)
 
+    data.progress_apply(ae,axis=1)
     
 
-    return r2_score(data.iloc[:,-2],data.iloc[:,-1])
+    return math.log(error)
