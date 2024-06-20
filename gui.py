@@ -6,6 +6,8 @@ from PIL import Image
 import matplotlib.pyplot as plt
 
 from rules_makers.rule_maker2 import RulesMaker2
+from rules_makers.rule_maker3 import RulesMaker3
+from rules_makers.rule_maker4 import RulesMaker4
 
 class GUI:
     def __init__(self, root):
@@ -13,7 +15,7 @@ class GUI:
         self.root = root
         self.root.geometry("750x650")
         self.root.title("Houses Cost Anti Scammer")
-        self.model = Model(RulesMaker2(),10)
+        self.model = Model(RulesMaker4(),10)
 
 
         self.value = customtkinter.CTkFont(family="Cairo", size=25)
