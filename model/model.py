@@ -40,10 +40,9 @@ class Model:
     def predict(self,input_dict:dict,mode:str='centroid'):
         self.fuzzy_system.reset()
 
-        
-        dis=distance(input_dict['long'],input_dict['lat'])
-
-        input_dict['location']=dis
+        if 'location' not in input_dict.keys():
+            dis=distance(input_dict['long'],input_dict['lat'])
+            input_dict['location']=dis
 
         input_dict['amenities']=input_dict['condition']
 
@@ -64,9 +63,9 @@ class Model:
         return fuzz.defuzz(memberships[0],memberships[1],mode)
 
     def model_input_vars(self):
-        size=ctrl.Antecedent(np.arange(0,6000,1),'size')
+        size=ctrl.Antecedent(np.arange(0,6001,1),'size')
         size['small']=fuzz.trimf(size.universe,[0,0,2500])
-        size['med']=fuzz.trapmf(size.universe,[1000,3000,4000,5000])
+        size['med']=fuzz.trimf(size.universe,[1000,3500,5000])
         size['large']=fuzz.trimf(size.universe,[4000,6000,6000])
 
         amenities=ctrl.Antecedent(np.arange(0,5.5,0.5),'amenities')
