@@ -40,9 +40,9 @@ class Model:
     def predict(self,input_dict:dict,mode:str='centroid'):
         self.fuzzy_system.reset()
 
-        if 'location' not in input_dict.keys():
+        if 'distance' not in input_dict.keys():
             dis=distance(input_dict['long'],input_dict['lat'])
-            input_dict['location']=dis
+            input_dict['distance']=dis
 
         input_dict['amenities']=input_dict['condition']
 
@@ -73,9 +73,9 @@ class Model:
         amenities['acceptable']=fuzz.gaussmf(amenities.universe,2.5,0.75)
         amenities['good']=fuzz.gaussmf(amenities.universe,5,0.75)
 
-        location=ctrl.Antecedent(np.arange(0,51,1),'location')
-        location['good']=fuzz.gaussmf(location.universe,0,7)
-        location['acceptable']=fuzz.gaussmf(location.universe,25,7)
-        location['poor']=fuzz.gaussmf(location.universe,50,7)
+        distance=ctrl.Antecedent(np.arange(0,51,1),'distance')
+        distance['close']=fuzz.gaussmf(distance.universe,0,7)
+        distance['med']=fuzz.gaussmf(distance.universe,25,7)
+        distance['far']=fuzz.gaussmf(distance.universe,50,7)
 
-        return {'size':size,'amenities':amenities,'location':location}
+        return {'size':size,'amenities':amenities,'distance':distance}

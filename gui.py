@@ -46,7 +46,7 @@ class GUI:
         self.create_label("view: 0", self.font, 6, 0, relx=0.68, rely=0.75)
         self.create_label("lat: 0", self.font, 7, 0, relx=0.68, rely=0.8)
         self.create_label("long: 0", self.font, 8, 0, relx=0.68, rely=0.85)
-        self.create_label("location_rating: 0", self.font, 9, 0, relx=0.68, rely=0.9)
+        self.create_label("distance_rating: 0", self.font, 9, 0, relx=0.68, rely=0.9)
 
        
         self.create_label("Please enter the fields:", self.font_header, 1, 0, 2)
@@ -91,8 +91,8 @@ class GUI:
         self.create_label("long:", self.font, 13, 0)
         self.long = self.create_entry("long", 13, 1)
 
-        self.create_label("location_rating:", self.font, 14, 0)
-        self.location_rating = self.create_entry("location_rating", 14, 1)
+        self.create_label("distance_rating:", self.font, 14, 0)
+        self.distance_rating = self.create_entry("distance_rating", 14, 1)
 
         self.create_label("The predicted price:", self.font_title, 10, 2, relx=0.48, rely=0.5)
 
@@ -128,7 +128,7 @@ class GUI:
             'view': float(self.view.get()),
             'lat': float(self.lat.get()),
             'long': float(self.long.get()),
-            'location_rating': float(self.location_rating.get())
+            'distance_rating': float(self.distance_rating.get())
         }
 
         result = self.model.predict(input_data)
@@ -152,7 +152,7 @@ class GUI:
         self.create_label(f"view: {input_data['view']}", self.font, 6, 0, relx=0.68, rely=0.75)
         self.create_label(f"lat: {input_data['lat']}", self.font, 7, 0, relx=0.68, rely=0.8)
         self.create_label(f"long: {input_data['long']}", self.font, 8, 0, relx=0.68, rely=0.85)
-        self.create_label(f"location_rating: {input_data['location_rating']}", self.font, 9, 0, relx=0.68, rely=0.9)
+        self.create_label(f"distance_rating: {input_data['distance_rating']}", self.font, 9, 0, relx=0.68, rely=0.9)
 
     def membership_living(self):
         self.model.input_vars['size'].view(sim=self.model.fuzzy_system)
@@ -163,7 +163,7 @@ class GUI:
 
 
     def membership_distance(self):
-        self.model.input_vars['location'].view(sim=self.model.fuzzy_system)
+        self.model.input_vars['distance'].view(sim=self.model.fuzzy_system)
 
 
 
