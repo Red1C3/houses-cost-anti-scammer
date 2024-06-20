@@ -52,7 +52,7 @@ class GUI:
         self.create_label("Please enter the fields:", self.font_header, 1, 0, 2)
 
 
-        self.create_label("Living:", self.var_font, 2, 0)
+        self.create_label("Space:", self.var_font, 2, 0)
         self.icon_button_living = customtkinter.CTkButton(master=root, text="i", width=20, height=20, command=self.membership_living)
         self.icon_button_living.grid(row=2, column=1, sticky='e')
 
@@ -81,7 +81,7 @@ class GUI:
         self.create_label("view:", self.font, 10, 0)
         self.view = self.create_entry("view", 10, 1)
 
-        self.create_label("distance:", self.var_font, 11, 0)
+        self.create_label("Location:", self.var_font, 11, 0)
         self.icon_button_distance = customtkinter.CTkButton(master=root, text="i", width=20, height=20, command=self.membership_distance)
         self.icon_button_distance.grid(row=11, column=1, sticky='e')
 
