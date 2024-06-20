@@ -64,19 +64,19 @@ class Model:
         return fuzz.defuzz(memberships[0],memberships[1],mode)
 
     def model_input_vars(self):
-        size=ctrl.Antecedent(np.arange(0,1.657859e+06,1e4),'size')
-        size['small']=fuzz.trimf(size.universe,[0,0,0.025e6])
-        size['med']=fuzz.trimf(size.universe,[0.01e6,0.1e6,0.125e6])
-        size['large']=fuzz.trapmf(size.universe,[0.12e6,0.5e6,1.657859e+06,1.657859e+06])
+        size=ctrl.Antecedent(np.arange(0,6000,1),'size')
+        size['small']=fuzz.trimf(size.universe,[0,0,2500])
+        size['med']=fuzz.trapmf(size.universe,[1000,3000,4000,5000])
+        size['large']=fuzz.trimf(size.universe,[4000,6000,6000])
 
-        amenities=ctrl.Antecedent(np.arange(0,3525,25),'amenities')
-        amenities['poor']=fuzz.gaussmf(amenities.universe,0,250)
-        amenities['acceptable']=fuzz.gaussmf(amenities.universe,851,200)
-        amenities['good']=fuzz.trapmf(amenities.universe,[983,1600,3500,3500])
+        amenities=ctrl.Antecedent(np.arange(0,5.5,0.5),'amenities')
+        amenities['poor']=fuzz.gaussmf(amenities.universe,0,0.5)
+        amenities['acceptable']=fuzz.gaussmf(amenities.universe,2.5,0.75)
+        amenities['good']=fuzz.gaussmf(amenities.universe,5,0.5)
 
-        location=ctrl.Antecedent(np.arange(1,11,0.01),'location')
-        location['poor']=fuzz.trapmf(location.universe,[1,1,6,6.1])
-        location['acceptable']=fuzz.trimf(location.universe,[6,6.5,7])
-        location['good']=fuzz.trapmf(location.universe,[6.9,8,11,11])
+        location=ctrl.Antecedent(np.arange(0,51,1),'location')
+        location['poor']=fuzz.gaussmf(location.universe,0,7)
+        location['acceptable']=fuzz.gaussmf(location.universe,25,7)
+        location['good']=fuzz.gaussmf(location.universe,50,7)
 
         return {'size':size,'amenities':amenities,'location':location}
