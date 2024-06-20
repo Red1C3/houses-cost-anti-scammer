@@ -13,7 +13,7 @@ class GUI:
         self.root = root
         self.root.geometry("750x650")
         self.root.title("Houses Cost Anti Scammer")
-        self.model = Model(RulesMaker2(),1e4)
+        self.model = Model(RulesMaker2(),10)
 
 
         self.value = customtkinter.CTkFont(family="Cairo", size=25)
