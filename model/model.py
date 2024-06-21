@@ -70,12 +70,12 @@ class Model:
 
         amenities=ctrl.Antecedent(np.arange(0,5.5,0.5),'amenities')
         amenities['poor']=fuzz.gaussmf(amenities.universe,0,0.75)
-        amenities['acceptable']=fuzz.gaussmf(amenities.universe,2.5,0.75)
+        amenities['acceptable']=fuzz.gaussmf(amenities.universe,2.5,0.5)
         amenities['good']=fuzz.gaussmf(amenities.universe,5,0.75)
 
         distance=ctrl.Antecedent(np.arange(0,51,1),'distance')
         distance['close']=fuzz.gaussmf(distance.universe,0,7)
-        distance['med']=fuzz.gaussmf(distance.universe,25,7)
+        distance['med']=fuzz.gaussmf(distance.universe,25,5)
         distance['far']=fuzz.gaussmf(distance.universe,50,7)
 
         return {'size':size,'amenities':amenities,'distance':distance}

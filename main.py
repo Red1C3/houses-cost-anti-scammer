@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import customtkinter as ctk
 from rules_makers.dummy import DummyRulesMaker
 from rules_makers.rule_maker import RulesMaker
-from rules_makers.rule_maker2 import RulesMaker2
+from rules_makers.rule_maker4 import RulesMaker4
 from test import test
 import warnings
 from gui import GUI
@@ -28,7 +28,7 @@ def main():
     root.mainloop()
 
 
-    model=Model(RulesMaker2(),1e4)
+    model=Model(RulesMaker4(),1e4)
     print(model.predict({'sqft_living':0,'sqft_lot':0,'view':0,'bedrooms':0,'bathrooms':0,
     'floors':0,'condition':1,'lat':47.5112,'long':-122.257,'location_rating':1}))
 
