@@ -21,4 +21,8 @@ class RulesMaker4:
 
 
                 ctrl.Rule(input_vars['distance']['close'] & input_vars['amenities']['good'] & input_vars['size']['large'],output_var['expensive']),
+
+                ctrl.Rule(input_vars['distance']['close'],output_var['expensive']),
+                ctrl.Rule(input_vars['amenities']['good'],output_var['expensive']),
+                ctrl.Rule(input_vars['size']['large'],output_var['expensive']),
             ]
