@@ -65,7 +65,7 @@ class Model:
     def model_input_vars(self):
         size=ctrl.Antecedent(np.arange(600,6001,1),'size')
         size['small']=fuzz.trimf(size.universe,[600,600,2500])
-        size['med']=fuzz.trimf(size.universe,[1500,3000,4500])
+        size['med']=fuzz.trimf(size.universe,[2000,3000,4000])
         size['large']=fuzz.trimf(size.universe,[4000,6000,6000])
 
         amenities=ctrl.Antecedent(np.arange(0,5.5,0.5),'amenities')
@@ -75,7 +75,7 @@ class Model:
 
         distance=ctrl.Antecedent(np.arange(0,51,1),'distance')
         distance['close']=fuzz.gaussmf(distance.universe,0,7)
-        distance['med']=fuzz.gaussmf(distance.universe,25,5)
+        distance['med']=fuzz.gaussmf(distance.universe,25,4)
         distance['far']=fuzz.gaussmf(distance.universe,50,7)
 
         return {'size':size,'amenities':amenities,'distance':distance}
