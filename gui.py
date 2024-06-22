@@ -5,9 +5,7 @@ import sys
 from PIL import Image
 import matplotlib.pyplot as plt
 
-from rules_makers.rule_maker2 import RulesMaker2
-from rules_makers.rule_maker3 import RulesMaker3
-from rules_makers.rule_maker4 import RulesMaker4
+from rules_makers.rule_maker import RulesMaker
 
 class GUI:
     def __init__(self, root):
@@ -15,7 +13,7 @@ class GUI:
         self.root = root
         self.root.geometry("680x400")
         self.root.title("Houses Cost Anti Scammer")
-        self.model = Model(RulesMaker4(),10)
+        self.model = Model(RulesMaker(),10)
 
 
         self.value = customtkinter.CTkFont(family="Cairo", size=25)
@@ -41,12 +39,6 @@ class GUI:
         self.create_label("condition: 0", self.font, 1, 0, relx=0.55, rely=0.89)
         self.create_label("long: 0", self.font, 2, 0, relx=0.8, rely=0.80)
         self.create_label("lat: 0", self.font, 3, 0, relx=0.8, rely=0.89)
-        # self.create_label("bedrooms: 0", self.font, 4, 0, relx=0.48, rely=0.9)
-        # self.create_label("floors: 0", self.font, 5, 0, relx=0.68, rely=0.7)
-        # self.create_label("view: 0", self.font, 6, 0, relx=0.68, rely=0.75)
-        # self.create_label("lat: 0", self.font, 7, 0, relx=0.68, rely=0.8)
-        # self.create_label("long: 0", self.font, 8, 0, relx=0.68, rely=0.85)
-        # self.create_label("distance_rating: 0", self.font, 9, 0, relx=0.68, rely=0.9)
 
        
         self.create_label("Please enter the fields:", self.font_header, 1, 0, 2)
