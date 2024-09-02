@@ -11,6 +11,7 @@ Based on statiscal data of the houses in King County.
 
 ### Simple (on simple branch)
 Based on heuristics and common sense.
+![](screenshots/screenshot-2.png)
 
 ## License
 [Unlicense](LICENSE)
