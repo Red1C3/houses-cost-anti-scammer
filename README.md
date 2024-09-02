@@ -7,10 +7,12 @@ The predictor makes used on location based on the distance from the [King County
 ## We implement two different systems:
 ### Complex (on main branch)
 Based on statiscal data of the houses in King County.
+
 ![](screenshots/screenshot-1.png)
 
 ### Simple (on simple branch)
 Based on heuristics and common sense.
+
 ![](screenshots/screenshot-2.png)
 
 ## License
